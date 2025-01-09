@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edward Tay</title>
+    <meta name="description" content="Personal website of Edward Tay - Code • Content • Capital • Community">
+    <meta property="og:title" content="Edward Tay">
+    <meta property="og:description" content="Code • Content • Capital • Community">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://edwardtay.com">
+    <link rel="canonical" href="https://edwardtay.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: black;
+        color: white;
+        font-family: system-ui, -apple-system, sans-serif;
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+      }
+
+      .warning-tape {
+        position: fixed;
+        left: 0;
+        right: 0;
+        height: 2rem;
+        background-color: #07dc05;
+        overflow: hidden;
+        z-index: 50;
+      }
+
+      .warning-tape.top { top: 0; }
+      .warning-tape.bottom { bottom: 0; }
+
+      .warning-tape-content {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        animation: slideRight 8s linear infinite;
+        will-change: transform;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+      }
+
+      .warning-tape.bottom .warning-tape-content {
+        animation: slideLeft 8s linear infinite;
+      }
+
+      .warning-tape-segment {
+        flex-shrink: 0;
+        width: 200%;
+        display: flex;
+        align-items: center;
+      }
+
+      .warning-tape-text-container {
+        display: flex;
+      }
+
+      .warning-tape-text {
+        font-family: 'Orbitron', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0 0.25em;
+        color: black;
+        white-space: nowrap;
+        font-size: 1.125rem;
+        animation: none;
+      }
+
+      @keyframes slideRight {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+        100% {
+          transform: translate3d(-50%, 0, 0);
+        }
+      }
+
+      @keyframes slideLeft {
+        0% {
+          transform: translate3d(-50%, 0, 0);
+        }
+        100% {
+          transform: translate3d(0, 0, 0);
+        }
+      }
+      .main-content {
+        min-height: 70vh;
+        width: 100%;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: calc(70vh * 0.1);
+        margin: 4rem auto 0;
+      }
+
+      .avatar {
+        width: min(10.8rem, 22.5vw);
+        height: min(10.8rem, 22.5vw);
+        border-radius: 50%;
+        overflow: hidden;
+        background: black;
+        position: relative;
+        transition: all 0.3s ease;
+        margin: 0 auto;
+      }
+
+      .avatar::before,
+      .avatar::after {
+        content: '';
+        position: absolute;
+        inset: -3px;
+        background: #07dc05;
+        border-radius: 50%;
+        z-index: -1;
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .avatar::after {
+        background: #07dc05;
+        filter: blur(12px);
+      }
+
+      .avatar:hover {
+        transform: scale(1.02);
+      }
+
+      .avatar:hover::before {
+        opacity: 0.5;
+        animation: glitchBorder 1s infinite;
+      }
+
+      .avatar:hover::after {
+        opacity: 0.3;
+        animation: glitchGlow 1.5s infinite;
+      }
+
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      @keyframes glitchBorder {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        75% { transform: scale(0.98); }
+      }
+
+      @keyframes glitchGlow {
+        0%, 100% { transform: scale(1); filter: blur(12px); }
+        50% { transform: scale(1.1); filter: blur(15px); }
+        75% { transform: scale(0.95); filter: blur(10px); }
+      }
+
+      .social-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: clamp(0.5rem, 1.5vw, 1rem);
+        max-width: clamp(320px, 40vw, 480px);
+        width: 100%;
+        margin: 0 auto;
+        justify-items: center;
+      }
+
+      .social-link {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.5rem;
+        border: 1px solid #374151;
+        color: white;
+        transition: all 0.2s ease-in-out;
+        text-decoration: none;
+        background-color: transparent;
+        padding: 0;
+        width: clamp(2.5rem, 8vw, 4rem);
+        height: clamp(2.5rem, 8vw, 4rem);
+        margin: 0;
+      }
+
+      .social-link:hover {
+        border-color: #6b7280;
+        color: #d1d5db;
+        transform: translateY(-2px);
+      }
+
+      .social-icon {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+
+      .social-link i.social-icon {
+        font-size: clamp(1.75rem, 5.5vw, 2.75rem);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .social-link svg.social-icon {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="warning-tape top">
+      <div class="warning-tape-content">
+        <div class="warning-tape-segment">
+          <div class="warning-tape-text-container">
+            <span class="warning-tape-text">CODE&nbsp;•&nbsp;CONTENT&nbsp;•&nbsp;CAPITAL&nbsp;•&nbsp;COMMUNITY&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CODE&nbsp;•&nbsp;CONTENT&nbsp;•&nbsp;CAPITAL&nbsp;•&nbsp;COMMUNITY&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CODE&nbsp;•&nbsp;CONTENT&nbsp;•&nbsp;CAPITAL&nbsp;•&nbsp;COMMUNITY&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CODE&nbsp;•&nbsp;CONTENT&nbsp;•&nbsp;CAPITAL&nbsp;•&nbsp;COMMUNITY&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CODE&nbsp;•&nbsp;CONTENT&nbsp;•&nbsp;CAPITAL&nbsp;•&nbsp;COMMUNITY&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CODE&nbsp;•&nbsp;CONTENT&nbsp;•&nbsp;CAPITAL&nbsp;•&nbsp;COMMUNITY&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CODE&nbsp;•&nbsp;CONTENT&nbsp;•&nbsp;CAPITAL&nbsp;•&nbsp;COMMUNITY&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CODE&nbsp;•&nbsp;CONTENT&nbsp;•&nbsp;CAPITAL&nbsp;•&nbsp;COMMUNITY&nbsp;•&nbsp;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="main-content">
+      <div class="avatar">
+        <img src="png_1.png" alt="Profile">
+      </div>
+
+      <div class="social-grid">
+        <a href="https://x.com/iamedwardtay" target="_blank" rel="noopener noreferrer" class="social-link">
+          <i class="fa-brands fa-x-twitter social-icon"></i>
+        </a>
+        <a href="https://github.com/edwardtay" target="_blank" rel="noopener noreferrer" class="social-link">
+          <i class="fa-brands fa-github social-icon"></i>
+        </a>
+        <a href="https://linkedin.com/in/edwardtaychuern" target="_blank" rel="noopener noreferrer" class="social-link">
+          <i class="fa-brands fa-linkedin social-icon"></i>
+        </a>
+        <a href="https://t.me/web3_wagmi" target="_blank" rel="noopener noreferrer" class="social-link">
+          <i class="fa-brands fa-telegram social-icon"></i>
+        </a>
+      </div>
+
+      <div class="social-grid">
+        <a href="https://quora.com/profile/Edward-Tay" target="_blank" rel="noopener noreferrer" class="social-link">
+          <i class="fa-brands fa-quora social-icon"></i>
+        </a>
+        <a href="https://soundcloud.com/edwardtay" target="_blank" rel="noopener noreferrer" class="social-link">
+          <i class="fa-brands fa-soundcloud social-icon"></i>
+        </a>
+        <a href="https://warpcast.com/edwardtay" target="_blank" rel="noopener noreferrer" class="social-link">
+          <svg viewBox="0 0 1000 1000" class="social-icon" fill="currentColor">
+            <path d="M257.778 155.556H742.222V844.444H671.111V528.889H670.414C662.554 441.677 589.258 373.333 500 373.333C410.742 373.333 337.446 441.677 329.586 528.889H328.889V844.444H257.778V155.556Z" />
+            <path d="M128.889 253.333L157.778 351.111H182.222V746.667C169.949 746.667 160 756.616 160 768.889V795.556H155.556C143.283 795.556 133.333 805.505 133.333 817.778V844.444H382.222V817.778C382.222 805.505 372.273 795.556 360 795.556H355.556V768.889C355.556 756.616 345.606 746.667 333.333 746.667H306.667V253.333H128.889Z" />
+            <path d="M675.556 746.667C663.282 746.667 653.333 756.616 653.333 768.889V795.556H648.889C636.616 795.556 626.667 805.505 626.667 817.778V844.444H875.556V817.778C875.556 805.505 865.606 795.556 853.333 795.556H848.889V768.889C848.889 756.616 838.94 746.667 826.667 746.667V351.111H851.111L880 253.333H702.222V746.667H675.556Z" />
+          </svg>
+        </a>
+        <a href="https://ethfollow.xyz/0x38430336153468dcf36af5cea7d6bc472425633a" target="_blank" rel="noopener noreferrer" class="social-link">
+          <i class="fa-brands fa-ethereum social-icon"></i>
+        </a>
+      </div>
+    </main>
+
+    <div class="warning-tape bottom">
+      <div class="warning-tape-content">
+        <div class="warning-tape-segment">
+          <div class="warning-tape-text-container">
+            <span class="warning-tape-text">CHAINS&nbsp;•&nbsp;COINS&nbsp;•&nbsp;DAPPS&nbsp;•&nbsp;DAOS&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CHAINS&nbsp;•&nbsp;COINS&nbsp;•&nbsp;DAPPS&nbsp;•&nbsp;DAOS&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CHAINS&nbsp;•&nbsp;COINS&nbsp;•&nbsp;DAPPS&nbsp;•&nbsp;DAOS&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CHAINS&nbsp;•&nbsp;COINS&nbsp;•&nbsp;DAPPS&nbsp;•&nbsp;DAOS&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CHAINS&nbsp;•&nbsp;COINS&nbsp;•&nbsp;DAPPS&nbsp;•&nbsp;DAOS&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CHAINS&nbsp;•&nbsp;COINS&nbsp;•&nbsp;DAPPS&nbsp;•&nbsp;DAOS&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CHAINS&nbsp;•&nbsp;COINS&nbsp;•&nbsp;DAPPS&nbsp;•&nbsp;DAOS&nbsp;•&nbsp;</span>
+            <span class="warning-tape-text">CHAINS&nbsp;•&nbsp;COINS&nbsp;•&nbsp;DAPPS&nbsp;•&nbsp;DAOS&nbsp;•&nbsp;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
