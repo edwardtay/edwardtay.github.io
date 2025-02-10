@@ -22,13 +22,19 @@
       }
 
       body {
-        background-color: black;
         color: white;
         font-family: system-ui, -apple-system, sans-serif;
         overflow: hidden;
         position: fixed;
         width: 100%;
         height: 100%;
+        background-color: #000000;
+        background-image: 
+          linear-gradient(rgba(7, 220, 5, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(7, 220, 5, 0.1) 1px, transparent 1px),
+          linear-gradient(rgba(7, 220, 5, 0.05) 2px, transparent 2px),
+          linear-gradient(90deg, rgba(7, 220, 5, 0.05) 2px, transparent 2px);
+        background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
       }
 
       .warning-tape {
@@ -77,6 +83,9 @@
         color: black;
         white-space: nowrap;
         font-size: 1.125rem;
+      }
+
+      .warning-tape-text:hover {
         animation: none;
       }
 
@@ -100,18 +109,23 @@
       .main-content {
         min-height: 70vh;
         width: 100%;
-        padding: 2rem;
+        padding: 1rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: calc(70vh * 0.1);
-        margin: 4rem auto 0;
+        gap: min(4vh, 2rem);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        margin: 0;
       }
 
       .avatar {
-        width: min(10.8rem, 22.5vw);
-        height: min(10.8rem, 22.5vw);
+        width: min(8rem, 18vh, 22vw);
+        height: min(8rem, 18vh, 22vw);
         border-radius: 50%;
         overflow: hidden;
         background: black;
@@ -172,15 +186,19 @@
 
       .social-grid {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: clamp(0.5rem, 1.5vw, 1rem);
-        max-width: clamp(320px, 40vw, 480px);
+        grid-template-columns: repeat(4, 1fr);
+        gap: min(1.5rem, 3vh, 4vw);
+        max-width: min(400px, 90vw);
         width: 100%;
         margin: 0 auto;
+        justify-content: center;
         justify-items: center;
+        align-items: center;
       }
 
       .social-link {
+        width: min(6rem, 12vh, 16vw);
+        height: min(6rem, 12vh, 16vw);
         aspect-ratio: 1;
         display: flex;
         align-items: center;
@@ -192,15 +210,33 @@
         text-decoration: none;
         background-color: transparent;
         padding: 0;
-        width: clamp(2.5rem, 8vw, 4rem);
-        height: clamp(2.5rem, 8vw, 4rem);
         margin: 0;
       }
 
+      .social-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          rgba(7, 220, 5, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .social-link:hover::before {
+        left: 100%;
+      }
+
       .social-link:hover {
-        border-color: #6b7280;
-        color: #d1d5db;
-        transform: translateY(-2px);
+        border-color: #07dc05;
+        box-shadow: 0 0 15px rgba(7, 220, 5, 0.3);
+        transform: translateY(-2px) scale(1.05);
       }
 
       .social-icon {
@@ -210,10 +246,12 @@
         align-items: center;
         justify-content: center;
         line-height: 1;
+        margin: 0;
+        padding: 0;
       }
 
       .social-link i.social-icon {
-        font-size: clamp(1.75rem, 5.5vw, 2.75rem);
+        font-size: min(3.5rem, 7vh, 10vw);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -227,6 +265,139 @@
         width: 100%;
         height: 100%;
         padding: 0;
+        transform: scale(0.8);
+      }
+
+      /* Small screens */
+      @media screen and (max-height: 600px), screen and (max-width: 480px) {
+        .main-content {
+          padding: 0.5rem;
+          gap: min(3vh, 1.5rem);
+          margin: 0;
+        }
+
+        .warning-tape {
+          height: 1.5rem;
+        }
+
+        .warning-tape-text {
+          font-size: 0.8rem;
+        }
+
+        .avatar {
+          width: min(7rem, 14vh, 18vw);
+          height: min(7rem, 14vh, 18vw);
+        }
+
+        .social-grid {
+          gap: min(0.75rem, 1.5vh, 2vw);
+        }
+
+        .social-grid + .social-grid {
+          margin-top: min(0.75rem, 1.5vh);
+        }
+
+        .social-link {
+          width: min(5rem, 10vh, 14vw);
+          height: min(5rem, 10vh, 14vw);
+        }
+
+        .social-link i.social-icon {
+          font-size: min(3rem, 6vh, 9vw);
+        }
+      }
+
+      /* Extra small screens */
+      @media screen and (max-height: 400px), screen and (max-width: 320px) {
+        .main-content {
+          padding: 0.5rem;
+          gap: min(2vh, 1rem);
+          margin: 0;
+        }
+
+        .warning-tape {
+          height: 1.25rem;
+        }
+
+        .warning-tape-text {
+          font-size: 0.7rem;
+        }
+
+        .avatar {
+          width: min(5rem, 11vh, 16vw);
+          height: min(5rem, 11vh, 16vw);
+        }
+
+        .social-grid {
+          gap: min(0.5rem, 1vh, 1.5vw);
+        }
+
+        .social-grid + .social-grid {
+          margin-top: min(0.5rem, 1vh);
+        }
+
+        .social-link {
+          width: min(4rem, 9vh, 12vw);
+          height: min(4rem, 9vh, 12vw);
+        }
+
+        .social-link i.social-icon {
+          font-size: min(2.5rem, 5vh, 7.5vw);
+        }
+      }
+
+      /* Glitch effect for social icons on hover */
+      @keyframes glitchIcon {
+        0% {
+          transform: translate(0);
+          filter: hue-rotate(0deg);
+        }
+        20% {
+          transform: translate(-2px, 2px);
+          filter: hue-rotate(70deg);
+        }
+        40% {
+          transform: translate(-2px, -2px);
+          filter: hue-rotate(140deg);
+        }
+        60% {
+          transform: translate(2px, 2px);
+          filter: hue-rotate(210deg);
+        }
+        80% {
+          transform: translate(2px, -2px);
+          filter: hue-rotate(280deg);
+        }
+        100% {
+          transform: translate(0);
+          filter: hue-rotate(360deg);
+        }
+      }
+
+      /* Pulse effect for avatar */
+      .avatar::before {
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.3;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 0.7;
+        }
+      }
+
+      /* Update social link hover effect */
+      .social-link:hover {
+        border-color: #07dc05;
+        box-shadow: 
+          0 0 15px rgba(7, 220, 5, 0.3),
+          0 0 30px rgba(7, 220, 5, 0.2),
+          0 0 45px rgba(7, 220, 5, 0.1);
+        animation: glitchIcon 0.3s infinite;
       }
     </style>
   </head>
@@ -304,5 +475,74 @@
         </div>
       </div>
     </div>
+
+    <canvas id="mouseTrail"></canvas>
+
+    <script>
+      const canvas = document.getElementById('mouseTrail');
+      const ctx = canvas.getContext('2d');
+      const particles = [];
+      
+      canvas.style.position = 'fixed';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.zIndex = '1';
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      class Particle {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.size = Math.random() * 3 + 1;
+          this.speedX = Math.random() * 2 - 1;
+          this.speedY = Math.random() * 2 - 1;
+          this.life = 20;
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          this.life--;
+        }
+
+        draw() {
+          ctx.fillStyle = `rgba(7, 220, 5, ${this.life / 20})`;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        for(let i = 0; i < 3; i++) {
+          particles.push(new Particle(e.x, e.y));
+        }
+      });
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for(let i = particles.length - 1; i >= 0; i--) {
+          particles[i].update();
+          particles[i].draw();
+          
+          if(particles[i].life <= 0) {
+            particles.splice(i, 1);
+          }
+        }
+        
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    </script>
   </body>
 </html>
